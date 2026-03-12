@@ -15,14 +15,6 @@ namespace Elsa.Persistence.MongoDb.Options
         public bool DoNotRegisterVariablesSerializer { get; set; }
 
         /// <summary>
-        /// If true it will use the new LINQ3 provider introduced in MongoDB.Driver 2.19.0 but 
-        /// it has some breaking changes, so it is preferibly to enable only if you are really sure
-        /// that it works without any problem in your project.
-        /// </summary>
-        [Obsolete("Prefer to use the ConfigureMongoClientSettings")]
-        public bool UseNewLinq3Provider { get; set; }
-
-        /// <summary>
         /// Let the caller configure MongoClientSettings.
         /// </summary>
         public Action<MongoClientSettings> ConfigureMongoClientSettings { get; set; } = _ => { };
