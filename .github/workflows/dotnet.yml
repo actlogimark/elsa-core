@@ -19,7 +19,7 @@ jobs:
       with:
         dotnet-version: 9.0.x
     - name: Restore
-      run: dotnet restore src/persistence/Elsa.Persistence.MongoDb/Elsa.Persistence.MongoDb.csproj --configfile NuGet.Config --verbosity n
+      run: dotnet restore src/persistence/Elsa.Persistence.MongoDb/Elsa.Persistence.MongoDb.csproj --configfile Nuget.Config --verbosity n
     - name: Build
       run: dotnet build src/persistence/Elsa.Persistence.MongoDb/Elsa.Persistence.MongoDb.csproj -c Release --no-restore -f net9.0
     - name: Pack
