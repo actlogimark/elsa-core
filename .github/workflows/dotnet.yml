@@ -23,6 +23,6 @@ jobs:
     - name: Build
       run: dotnet build src/persistence/Elsa.Persistence.MongoDb/Elsa.Persistence.MongoDb.csproj -c Release --no-restore -f net9.0
     - name: Pack
-      run: dotnet pack src/persistence/Elsa.Persistence.MongoDb/Elsa.Persistence.MongoDb.csproj -c Release --no-build -f net9.0 -p:PackageVersion=${{ env.VERSION_PREFIX }}.${{ github.run_number }}
+      run: dotnet pack src/persistence/Elsa.Persistence.MongoDb/Elsa.Persistence.MongoDb.csproj -c Release --no-build -p:TargetFramework=net9.0 -p:PackageVersion=${{ env.VERSION_PREFIX }}.${{ github.run_number }}
     - name: Push
       run: dotnet nuget push **/*.nupkg --source "https://nuget.pkg.github.com/actlogimark/index.json" --api-key "${{ secrets.GITHUB_TOKEN }}"
