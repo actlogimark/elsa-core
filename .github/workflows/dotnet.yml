@@ -1,0 +1,28 @@
+name: .NET
+
+on:
+  push:
+    branches: [ mongodb-driver-3x ]
+
+env:
+  VERSION_PREFIX: "2.14"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.x
+    - name: Restore
+      run: dotnet restore src/persistence/Elsa.Persistence.MongoDb/Elsa.Persistence.MongoDb.csproj --configfile NuGet.Config --verbosity n
+    - name: Build
+      run: dotnet build src/persistence/Elsa.Persistence.MongoDb/Elsa.Persistence.MongoDb.csproj -c Release --no-restore -f net9.0
+    - name: Pack
+      run: dotnet pack src/persistence/Elsa.Persistence.MongoDb/Elsa.Persistence.MongoDb.csproj -c Release --no-build -f net9.0 -p:PackageVersion=${{ env.VERSION_PREFIX }}.${{ github.run_number }}
+    - name: Push
+      run: dotnet nuget push **/*.nupkg --source "https://nuget.pkg.github.com/actlogimark/index.json" --api-key "${{ secrets.GITHUB_TOKEN }}"
